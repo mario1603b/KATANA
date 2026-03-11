@@ -1,0 +1,22 @@
+# Entornos Virtuales
+venv/
+env/
+.env
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos temporales de PyInstaller
+build/
+dist/
+*.spec
+
+# Archivos temporales generados por KATANA al ejecutarse
+.iconos_mac/
+Resultado_KATANA.csv
+mapa_katana.html
+
+# Configuración del IDE (VS Code)
+.vscode/
