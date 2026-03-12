@@ -1,9 +1,10 @@
+
 <p align="center">
-  <img src="https://raw.githubusercontent.com/yourusername/katana-threat-analyzer/main/assets/katana-banner.png" width="900">
+  <img src="https://raw.githubusercontent.com/mario1603b/KATANA/main/assets/katana-banner.png" width="900" alt="KATANA Banner">
 </p>
 
-<h1 align="center">⚔️ KATANA v3.0</h1>
-<h3 align="center">Threat Intelligence & Active Defense Platform</h3>
+<h1 align="center">⚔️ KATANA v5.2 Enterprise Edition</h1>
+<h3 align="center">Threat Intelligence, Reporting & Active Defense Platform</h3>
 
 <p align="center">
 Advanced SOC Analysis Tool for Sophos Firewall Logs
@@ -14,98 +15,77 @@ Advanced SOC Analysis Tool for Sophos Firewall Logs
 <img src="https://img.shields.io/badge/platform-Windows-lightgrey">
 <img src="https://img.shields.io/badge/gui-CustomTkinter-green">
 <img src="https://img.shields.io/badge/firewall-Sophos_API-orange">
-<img src="https://img.shields.io/github/license/yourusername/katana-threat-analyzer">
-<img src="https://img.shields.io/github/stars/yourusername/katana-threat-analyzer">
-<img src="https://img.shields.io/github/forks/yourusername/katana-threat-analyzer">
+<img src="https://img.shields.io/github/license/mario1603b/KATANA">
+<img src="https://img.shields.io/github/stars/mario1603b/KATANA">
+<img src="https://img.shields.io/github/forks/mario1603b/KATANA">
 </p>
 
 ---
 
-# ⚔️ KATANA v3.0 — Threat Intelligence & Active Defense
+# ⚔️ KATANA v5.2 — Overview
 
-KATANA is a **Threat Intelligence and Active Defense platform** designed for **SOC analysts, incident responders and cybersecurity researchers**.
+KATANA is a **Threat Intelligence and Active Defense platform** designed for **SOC analysts, incident responders, and cybersecurity architects**.
 
-The tool analyzes **Sophos Firewall logs**, extracts attacker intelligence, visualizes attack patterns, and can **actively mitigate threats by blocking attackers directly via the Sophos Firewall API**.
+The tool analyzes **Sophos Firewall logs**, extracts attacker intelligence, visualizes attack patterns, generates executive forensic reports, and can **actively mitigate threats by grouping and blocking attackers directly via the Sophos Firewall API**.
 
 KATANA bridges the gap between:
 
-• 🔎 Forensic Log Analysis
-• 📊 Threat Intelligence Visualization
-• 🛡️ Automated Active Defense
+* 🔎 **Forensic Log Analysis**
+* 📊 **Threat Intelligence Visualization**
+* 📄 **Executive PDF Reporting**
+* 🛡️ **Automated Active Defense**
 
 ---
 
 # 🚀 Core Capabilities
 
-KATANA combines **log forensics**, **threat intelligence**, and **automated defense** into a single desktop platform.
+
+
+KATANA combines log forensics, threat intelligence, and automated defense into a single, highly optimized desktop platform. 
+
+### ⚡ v5.2 Enterprise Updates
+* **Multithreaded Architecture:** Heavy computations (Pandas, API requests) are decoupled from the UI thread, ensuring a 100% fluid and responsive interface without freezing.
+* **API Independence:** Built for speed and reliability. Removed third-party rate-limited APIs (like VirusTotal/AbuseIPDB) to guarantee instant offline forensics.
+* **Dynamic UI State Management:** Intelligent interface that guides the analyst, lighting up action buttons only when prerequisites are met.
 
 ---
 
 # 🔍 Threat Intelligence Engine
 
-Parses raw firewall logs and extracts attack intelligence.
+Parses raw firewall logs and extracts attack intelligence in seconds.
 
 ### Features
-
-• Sophos CSV log parsing
-• Attacker IP extraction
-• Username brute-force detection
-• Attack frequency analysis
-• Targeted account identification
+* Universal Sophos CSV log parsing.
+* Attacker IP extraction via Regex.
+* Targeted username brute-force detection.
+* Batch geographic localization (100 IPs per request).
 
 ---
 
-# 🌍 Global Threat Mapping
+# 📄 Executive Reporting & Visualization
 
-Visualize attacks geographically.
+Convert raw data into actionable deliverables for clients and management.
 
-Powered by:
 
-* Pandas
-* Plotly
-* Matplotlib
-
-Includes:
-
-• Top attacking countries
-• Global heatmap
-• Attack distribution charts
-• Interactive world visualization
+### Capabilities
+* **One-Click PDF Export:** Automatically generates a comprehensive 2-page forensic report using `fpdf`.
+* **Global Threat Mapping:** Interactive 2D/3D high-resolution topological heat map powered by Plotly.
+* **Attack Distribution:** Matplotlib-powered charts showing top attacking countries and most vulnerable accounts.
 
 ---
 
 # 🛡️ AEGIS Active Defense Engine
 
-AEGIS allows **direct mitigation of malicious IP addresses** through the **Sophos Firewall API**.
+AEGIS allows **direct mitigation of malicious IP addresses** through the **Sophos Firewall API**, maintaining strict firewall hygiene.
+
+### Smart Grouping Technology
+Instead of polluting the firewall with scattered IP objects, AEGIS v5.2 automatically creates and updates a single `IPHostGroup` named **`KATANA_BLACKLIST`**. Administrators only need to configure a single drop rule for this group.
 
 ### Capabilities
-
-• Direct Sophos Firewall API integration
-• Automated malicious IP blocking
-• Real-time mitigation console
-• Bulk attacker injection
-
-### Blocking Modes
-
-* Top 10 attackers
-* Top 50 attackers
-* Top 100 attackers
-
----
-
-# 🖥️ Application Interface
-
-## Dashboard
-
-![Dashboard](assets/dashboard.png)
-
-## Threat Map
-
-![Threat Map](assets/map.png)
-
-## AEGIS Console
-
-![AEGIS](assets/aegis.png)
+* Direct Sophos Firewall XML/REST API integration.
+* Automated IP Host creation and Group consolidation.
+* Real-time mitigation terminal console.
+* Threshold targeting (Top 10, Top 50, or Top 100 attackers).
 
 ---
 
@@ -114,13 +94,15 @@ AEGIS allows **direct mitigation of malicious IP addresses** through the **Sopho
 Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/katana-threat-analyzer.git
-cd katana-threat-analyzer
-```
+git clone [https://github.com/mario1603b/KATANA.git](https://github.com/mario1603b/KATANA.git)
+cd KATANA
+````
 
 Install dependencies:
 
-```bash
+Bash
+
+```
 pip install -r requirements.txt
 ```
 
@@ -128,73 +110,53 @@ pip install -r requirements.txt
 
 # ⚙️ Sophos Firewall Configuration
 
-To allow KATANA to interact with the firewall:
+To allow KATANA's AEGIS engine to interact with the firewall:
 
-1. Login to **Sophos WebAdmin**
-2. Navigate to:
-
-```
-Administration → Device Access
-```
-
-3. Enable:
-
-```
-API Configuration
-```
-
+1. Login to **Sophos WebAdmin**.
+    
+2. Navigate to: `Administration → Device Access`.
+    
+3. Enable **API Configuration**.
+    
 4. Add the **IP address of the machine running KATANA** to the allowed list.
+    
+5. Create a Firewall Rule at the top of your list dropping traffic from the Source Network: `KATANA_BLACKLIST`.
+    
 
 ---
 
 # 🧱 Build Portable Executable
 
-You can compile KATANA into a **single portable Windows executable**.
+You can compile KATANA into a **single portable Windows executable** that requires no Python installation.
+
 
 ```bash
-pyinstaller --noconfirm --onefile --windowed --name "KATANA_v3.0_Ultimate" katana.py
+pyinstaller --noconfirm --onefile --windowed --name "KATANA_v5.2_Enterprise" main.py
 ```
 
-Note:
-
-Large libraries such as **Pandas** and **Plotly** are bundled, so the first launch may take several seconds.
+_Note: Large data-science libraries (Pandas, Plotly, Matplotlib) are bundled inside the `.exe`. The first launch may take 5-10 seconds as Windows decompresses the payload into memory._
 
 ---
 
 # 🛠️ Technology Stack
 
-| Component       | Technology          |
-| --------------- | ------------------- |
-| Language        | Python              |
-| GUI             | CustomTkinter       |
-| Data Processing | Pandas              |
-| Visualization   | Matplotlib / Plotly |
-| Networking      | Sophos Firewall API |
-
----
-
-# 🎯 Use Cases
-
-KATANA can be used for:
-
-• SOC investigations
-• Firewall brute-force detection
-• Threat intelligence analysis
-• Incident response
-• Security monitoring
-• Automated attacker blocking
+|**Component**|**Technology**|
+|---|---|
+|**Language**|Python 3.9+|
+|**GUI Framework**|CustomTkinter|
+|**Data Processing**|Pandas|
+|**Visualization**|Matplotlib / Plotly|
+|**Reporting**|FPDF|
+|**Concurrency**|Python Threading|
+|**Networking**|Sophos XML API (`requests`)|
 
 ---
 
 # ⚠️ Disclaimer
 
-The **AEGIS Engine performs direct modifications to firewall configurations**.
+The **AEGIS Engine performs direct modifications to firewall configurations**. Use responsibly.
 
-Use responsibly.
-
-The authors are **not responsible for network outages, firewall misconfigurations, or unintended blocks** caused by automated mitigation.
-
-Always test in a **controlled environment** before production use.
+The authors are **not responsible for network outages, firewall misconfigurations, or unintended blocks** caused by automated mitigation. Always test in a **controlled environment** before production use.
 
 ---
 
@@ -206,10 +168,6 @@ MIT License
 
 # 👨‍💻 Author
 
-Cybersecurity Research Project
+Cybersecurity Research Project by **mario1603b**.
 
-Focus areas:
-
-Threat Intelligence
-Defensive Security
-Security Automation
+Focus areas: Threat Intelligence | Defensive Security | Security Automation
