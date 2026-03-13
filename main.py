@@ -126,8 +126,8 @@ def db_geo_save(results: dict):
 # ─────────────────────────────────────────────────────────────────────────────
 #  TEMA  (macOS-style dark / warm light)
 # ─────────────────────────────────────────────────────────────────────────────
-MONO = "'IBM Plex Mono','Consolas','Courier New',monospace"
-SANS = "'IBM Plex Sans','Segoe UI','Helvetica Neue',sans-serif"
+MONO = "'JetBrains Mono','IBM Plex Mono','Consolas','Courier New',monospace"
+SANS = "'Poppins','Segoe UI','Helvetica Neue',sans-serif"
 
 THEMES = {
     "dark": {
@@ -173,76 +173,166 @@ _update_globals()
 def _build_qss() -> str:
     t = _T
     return f"""
+/* ── Base ── */
 * {{ font-family:{SANS}; font-size:12px; color:{t['INK']}; outline:none; }}
 QMainWindow,QDialog {{ background:{t['BG']}; }}
 QWidget {{ background:transparent; color:{t['INK']}; }}
 
+/* ── Estructuras ── */
 #sidebar  {{ background:{t['SURFACE']}; border-right:1px solid {t['BORDER']}; }}
 #topbar   {{ background:{t['SURFACE']}; border-bottom:1px solid {t['BORDER']}; }}
 #card     {{ background:{t['SURFACE']}; border:1px solid {t['BORDER']}; border-radius:6px; }}
 
+/* ── Botones base ── */
 QPushButton {{
     background:{t['SURFACE2']}; color:{t['INK2']};
     border:1px solid {t['BORDER2']}; border-radius:5px;
-    padding:6px 14px; font-size:11px;
+    padding:6px 14px; font-size:11px; font-weight:500;
 }}
-QPushButton:hover  {{ background:{t['BORDER2']}; color:{t['INK']}; }}
+QPushButton:hover   {{ background:{t['BORDER2']}; color:{t['INK']}; }}
 QPushButton:pressed {{ background:{t['BORDER']}; }}
 QPushButton:disabled {{ color:{t['INK_DIM']}; border-color:{t['BORDER']}; background:{t['SURFACE']}; }}
 
-QPushButton#primary  {{ background:{t['ACCENT']}; color:white; border:none; font-weight:600; }}
-QPushButton#primary:hover {{ background:{t['ACCENT_D']}; }}
+/* Primary — máximo énfasis */
+QPushButton#primary {{
+    background:{t['ACCENT']}; color:white; border:none;
+    font-weight:700; font-size:12px; letter-spacing:0.3px;
+}}
+QPushButton#primary:hover    {{ background:{t['ACCENT_D']}; }}
 QPushButton#primary:disabled {{ background:{t['BORDER2']}; color:{t['INK_DIM']}; }}
 
-QPushButton#ghost {{ background:transparent; border:none; color:{t['INK2']}; padding:4px 8px; }}
+/* Ghost */
+QPushButton#ghost {{
+    background:transparent; border:none;
+    color:{t['INK_DIM']}; padding:4px 8px; font-size:11px; font-weight:400;
+}}
 QPushButton#ghost:hover {{ color:{t['ACCENT']}; background:{t['ACCENT']}18; }}
 
-QPushButton#danger  {{ background:{t['DANGER']}12; color:{t['DANGER']}; border:1px solid {t['DANGER']}44; border-radius:5px; }}
-QPushButton#danger:hover {{ background:{t['DANGER']}22; border-color:{t['DANGER']}; }}
+/* Danger */
+QPushButton#danger {{
+    background:{t['DANGER']}12; color:{t['DANGER']};
+    border:1px solid {t['DANGER']}44; border-radius:5px;
+    font-weight:600; font-size:11px;
+}}
+QPushButton#danger:hover    {{ background:{t['DANGER']}22; border-color:{t['DANGER']}; }}
 QPushButton#danger:disabled {{ color:{t['INK_DIM']}; border-color:{t['BORDER']}; background:transparent; }}
 
-QPushButton#success {{ background:{t['SUCCESS']}12; color:{t['SUCCESS']}; border:1px solid {t['SUCCESS']}44; border-radius:5px; }}
-QPushButton#success:hover {{ background:{t['SUCCESS']}22; border-color:{t['SUCCESS']}; }}
+/* Success */
+QPushButton#success {{
+    background:{t['SUCCESS']}12; color:{t['SUCCESS']};
+    border:1px solid {t['SUCCESS']}44; border-radius:5px;
+    font-weight:600; font-size:11px;
+}}
+QPushButton#success:hover    {{ background:{t['SUCCESS']}22; border-color:{t['SUCCESS']}; }}
 QPushButton#success:disabled {{ color:{t['INK_DIM']}; border-color:{t['BORDER']}; background:transparent; }}
 
+/* Theme toggle */
 QPushButton#theme_btn {{
     background:{t['SURFACE2']}; border:1px solid {t['BORDER2']};
-    color:{t['INK2']}; padding:3px 10px; border-radius:10px; font-size:10px;
+    color:{t['INK2']}; padding:3px 10px; border-radius:10px;
+    font-size:10px; font-weight:500;
 }}
 QPushButton#theme_btn:hover {{ color:{t['INK']}; background:{t['BORDER2']}; }}
 
-QTabWidget::pane {{ background:{t['SURFACE']}; border:1px solid {t['BORDER']}; border-top:none; border-radius:0 0 6px 6px; }}
+/* ── Tabs ── */
+QTabWidget::pane {{
+    background:{t['SURFACE']}; border:1px solid {t['BORDER']};
+    border-top:none; border-radius:0 0 6px 6px;
+}}
 QTabBar {{ background:{t['BG']}; }}
-QTabBar::tab {{ background:transparent; color:{t['INK_DIM']}; padding:8px 20px; border:none; border-bottom:2px solid transparent; font-size:11px; font-weight:500; }}
-QTabBar::tab:selected {{ color:{t['INK']}; border-bottom:2px solid {t['ACCENT']}; }}
-QTabBar::tab:hover:!selected {{ color:{t['INK2']}; border-bottom:2px solid {t['BORDER2']}; }}
+QTabBar::tab {{
+    background:transparent; color:{t['INK_DIM']};
+    padding:8px 20px; border:none;
+    border-bottom:2px solid transparent;
+    font-size:11px; font-weight:500;
+}}
+QTabBar::tab:selected {{
+    color:{t['INK']}; border-bottom:2px solid {t['ACCENT']};
+    font-weight:700;
+}}
+QTabBar::tab:hover:!selected {{
+    color:{t['INK2']}; border-bottom:2px solid {t['BORDER2']};
+}}
 
-QTreeWidget,QTableWidget {{ background:{t['SURFACE']}; color:{t['INK']}; border:none; alternate-background-color:{t['BG']}; gridline-color:{t['BORDER']}; font-family:{MONO}; font-size:11px; selection-background-color:{t['ACCENT']}28; selection-color:{t['INK']}; }}
-QTreeWidget::item,QTableWidget::item {{ padding:5px 10px; border-bottom:1px solid {t['BORDER']}; color:{t['INK']}; }}
-QTreeWidget::item:selected,QTableWidget::item:selected {{ background:{t['ACCENT']}28; color:{t['INK']}; border-left:2px solid {t['ACCENT']}; }}
-QTreeWidget::item:hover:!selected,QTableWidget::item:hover:!selected {{ background:{t['SURFACE2']}; }}
+/* ── Árbol IP y tablas — datos mono, peso suave ── */
+QTreeWidget,QTableWidget {{
+    background:{t['SURFACE']}; color:{t['INK2']};
+    border:none; alternate-background-color:{t['BG']};
+    gridline-color:{t['BORDER']};
+    font-family:{MONO}; font-size:11px; font-weight:400;
+    selection-background-color:{t['ACCENT']}28; selection-color:{t['INK']};
+}}
+QTreeWidget::item,QTableWidget::item {{
+    padding:5px 10px; border-bottom:1px solid {t['BORDER']};
+    color:{t['INK2']};
+}}
+QTreeWidget::item:selected,QTableWidget::item:selected {{
+    background:{t['ACCENT']}28; color:{t['INK']};
+    border-left:2px solid {t['ACCENT']}; font-weight:500;
+}}
+QTreeWidget::item:hover:!selected,QTableWidget::item:hover:!selected {{
+    background:{t['SURFACE2']};
+}}
 QHeaderView {{ background:{t['BG']}; }}
-QHeaderView::section {{ background:{t['BG']}; color:{t['INK_DIM']}; border:none; border-bottom:1px solid {t['BORDER2']}; border-right:1px solid {t['BORDER']}; padding:6px 10px; font-size:10px; font-weight:600; letter-spacing:0.8px; }}
+QHeaderView::section {{
+    background:{t['BG']}; color:{t['INK_DIM']};
+    border:none; border-bottom:1px solid {t['BORDER2']};
+    border-right:1px solid {t['BORDER']};
+    padding:6px 10px; font-size:9px; font-weight:700;
+    letter-spacing:1px;
+}}
 
-QLineEdit {{ background:{t['BG']}; color:{t['INK']}; border:1px solid {t['BORDER2']}; border-radius:5px; padding:6px 10px; selection-background-color:{t['ACCENT']}44; }}
-QLineEdit:focus {{ border-color:{t['ACCENT']}; background:{t['SURFACE']}; }}
+/* ── Inputs ── */
+QLineEdit {{
+    background:{t['BG']}; color:{t['INK']};
+    border:1px solid {t['BORDER2']}; border-radius:5px;
+    padding:6px 10px; font-weight:400;
+    selection-background-color:{t['ACCENT']}44;
+}}
+QLineEdit:focus   {{ border-color:{t['ACCENT']}; background:{t['SURFACE']}; }}
 QLineEdit:disabled {{ color:{t['INK_DIM']}; }}
 
-QComboBox {{ background:{t['BG']}; color:{t['INK']}; border:1px solid {t['BORDER2']}; border-radius:5px; padding:5px 10px; min-width:100px; }}
+QComboBox {{
+    background:{t['BG']}; color:{t['INK']};
+    border:1px solid {t['BORDER2']}; border-radius:5px;
+    padding:5px 10px; min-width:100px; font-weight:400;
+}}
 QComboBox:focus {{ border-color:{t['ACCENT']}; }}
 QComboBox::drop-down {{ border:none; width:18px; }}
-QComboBox QAbstractItemView {{ background:{t['SURFACE']}; color:{t['INK']}; border:1px solid {t['BORDER2']}; selection-background-color:{t['ACCENT']}28; selection-color:{t['INK']}; }}
+QComboBox QAbstractItemView {{
+    background:{t['SURFACE']}; color:{t['INK']};
+    border:1px solid {t['BORDER2']};
+    selection-background-color:{t['ACCENT']}28; selection-color:{t['INK']};
+    font-weight:400;
+}}
 
-QTextEdit {{ background:{t['SURFACE']}; color:{t['INK']}; border:1px solid {t['BORDER']}; border-radius:5px; padding:6px; }}
-QTextEdit#console {{ background:{t['CON_BG']}; color:{t['CON_FG']}; border:none; border-radius:5px; font-family:{MONO}; font-size:11px; padding:10px; }}
+QTextEdit {{
+    background:{t['SURFACE']}; color:{t['INK']};
+    border:1px solid {t['BORDER']}; border-radius:5px;
+    padding:6px; font-weight:400;
+}}
+QTextEdit#console {{
+    background:{t['CON_BG']}; color:{t['CON_FG']};
+    border:none; border-radius:5px;
+    font-family:{MONO}; font-size:11px; padding:10px;
+}}
 
-QCheckBox {{ color:{t['INK2']}; spacing:6px; font-size:11px; }}
-QCheckBox::indicator {{ width:14px; height:14px; background:{t['BG']}; border:1.5px solid {t['BORDER2']}; border-radius:3px; }}
+/* ── Checkboxes ── */
+QCheckBox {{ color:{t['INK2']}; spacing:6px; font-size:11px; font-weight:400; }}
+QCheckBox::indicator {{
+    width:14px; height:14px; background:{t['BG']};
+    border:1.5px solid {t['BORDER2']}; border-radius:3px;
+}}
 QCheckBox::indicator:checked {{ background:{t['ACCENT']}; border-color:{t['ACCENT']}; }}
 
-QProgressBar {{ background:{t['BORDER']}; border:none; border-radius:1px; height:2px; color:transparent; }}
+/* ── Progress ── */
+QProgressBar {{
+    background:{t['BORDER']}; border:none; border-radius:1px;
+    height:2px; color:transparent;
+}}
 QProgressBar::chunk {{ background:{t['ACCENT']}; border-radius:1px; }}
 
+/* ── Scrollbars ── */
 QScrollBar:vertical {{ background:transparent; width:6px; border:none; }}
 QScrollBar::handle:vertical {{ background:{t['BORDER2']}; border-radius:3px; min-height:24px; }}
 QScrollBar::handle:vertical:hover {{ background:{t['INK_DIM']}; }}
@@ -252,25 +342,57 @@ QScrollBar::handle:horizontal {{ background:{t['BORDER2']}; border-radius:3px; }
 QScrollBar::handle:horizontal:hover {{ background:{t['INK_DIM']}; }}
 QScrollBar::add-line:horizontal,QScrollBar::sub-line:horizontal {{ width:0; }}
 
-QFrame[frameShape="4"],QFrame[frameShape="5"] {{ color:{t['BORDER']}; background:{t['BORDER']}; max-height:1px; border:none; }}
-QSpinBox {{ background:{t['BG']}; color:{t['INK']}; border:1px solid {t['BORDER2']}; border-radius:5px; padding:5px 8px; }}
+QFrame[frameShape="4"],QFrame[frameShape="5"] {{
+    color:{t['BORDER']}; background:{t['BORDER']}; max-height:1px; border:none;
+}}
+
+/* ── SpinBox ── */
+QSpinBox {{
+    background:{t['BG']}; color:{t['INK']};
+    border:1px solid {t['BORDER2']}; border-radius:5px;
+    padding:5px 8px; font-weight:400;
+}}
 QSpinBox:focus {{ border-color:{t['ACCENT']}; }}
 QSpinBox::up-button,QSpinBox::down-button {{ width:0; }}
 
-QGroupBox {{ color:{t['INK_DIM']}; border:1px solid {t['BORDER']}; border-radius:6px; margin-top:14px; padding-top:12px; font-size:10px; font-weight:600; letter-spacing:0.8px; background:{t['SURFACE']}; }}
-QGroupBox::title {{ subcontrol-origin:margin; left:12px; padding:0 6px; color:{t['INK_DIM']}; background:{t['SURFACE']}; }}
+/* ── GroupBox ── */
+QGroupBox {{
+    color:{t['INK_DIM']}; border:1px solid {t['BORDER']};
+    border-radius:6px; margin-top:14px; padding-top:12px;
+    font-size:10px; font-weight:700; letter-spacing:0.8px;
+    background:{t['SURFACE']};
+}}
+QGroupBox::title {{
+    subcontrol-origin:margin; left:12px; padding:0 6px;
+    color:{t['INK_DIM']}; background:{t['SURFACE']};
+}}
 
-QMenu {{ background:{t['SURFACE']}; color:{t['INK']}; border:1px solid {t['BORDER2']}; padding:4px; border-radius:8px; }}
-QMenu::item {{ padding:6px 18px; font-size:12px; border-radius:4px; color:{t['INK']}; }}
-QMenu::item:selected {{ background:{t['ACCENT']}28; }}
+/* ── Menús — bold, bien diferenciados ── */
+QMenu {{
+    background:{t['SURFACE']}; color:{t['INK']};
+    border:1px solid {t['BORDER2']}; padding:4px; border-radius:8px;
+}}
+QMenu::item {{
+    padding:7px 20px; font-size:12px; font-weight:600;
+    border-radius:4px; color:{t['INK']};
+}}
+QMenu::item:selected {{
+    background:{t['ACCENT']}28; color:{t['INK']};
+    font-weight:700;
+}}
 QMenu::separator {{ height:1px; background:{t['BORDER']}; margin:4px 8px; }}
 
+/* ── Mensajes ── */
 QMessageBox {{ background:{t['SURFACE']}; }}
-QMessageBox QLabel {{ color:{t['INK']}; font-size:12px; background:transparent; }}
-QMessageBox QPushButton {{ min-width:80px; }}
+QMessageBox QLabel {{ color:{t['INK']}; font-size:12px; font-weight:500; background:transparent; }}
+QMessageBox QPushButton {{ min-width:80px; font-weight:600; }}
 
-QLabel#lbl_dim {{ color:{t['INK_DIM']}; }}
-QToolTip {{ background:{t['SURFACE2']}; color:{t['INK']}; border:1px solid {t['BORDER2']}; padding:4px 8px; border-radius:4px; font-size:11px; }}
+QLabel#lbl_dim {{ color:{t['INK_DIM']}; font-weight:400; }}
+QToolTip {{
+    background:{t['SURFACE2']}; color:{t['INK']};
+    border:1px solid {t['BORDER2']}; padding:4px 8px;
+    border-radius:4px; font-size:11px; font-weight:500;
+}}
 """
 
 
@@ -910,32 +1032,77 @@ class ExportDialog(QDialog):
     def __init__(self, df, df_mapa, parent=None):
         super().__init__(parent)
         self.df = df; self.df_mapa = df_mapa
-        self.setWindowTitle("Export Data"); self.setFixedWidth(400)
-        lo = QVBoxLayout(self); lo.setContentsMargins(24,24,24,20); lo.setSpacing(12)
-        lo.addWidget(lbl("Export", size=15, bold=True)); lo.addWidget(sep())
-        self.chk_pdf  = QCheckBox("PDF Report  (executive summary)")
-        self.chk_pdf.setChecked(True)
-        self.chk_xlsx = QCheckBox("Excel  (.xlsx)  — full IP table")
-        self.chk_json = QCheckBox("JSON  — SIEM / SOAR payload")
-        self.chk_ioc  = QCheckBox("IOC List  (.txt)  — plain IP list")
-        for c in [self.chk_pdf, self.chk_xlsx, self.chk_json, self.chk_ioc]:
-            lo.addWidget(c)
+        self.setWindowTitle("Export Data"); self.setFixedWidth(440)
+        lo = QVBoxLayout(self); lo.setContentsMargins(24,24,24,20); lo.setSpacing(14)
+
+        # ── Título ────────────────────────────────────────────────────────────
+        lo.addWidget(lbl("Export Report", size=15, bold=True))
+        lo.addWidget(lbl(f"{df['IP_Atacante'].nunique():,} IPs  ·  "
+                         f"{len(df):,} events  ·  "
+                         f"{df['Pais'].nunique()} countries",
+                         dim=True, size=11))
         lo.addWidget(sep())
-        row = QHBoxLayout(); row.setSpacing(6)
+
+        # ── Formatos disponibles ──────────────────────────────────────────────
+        lo.addWidget(lbl("Output formats", size=10, bold=True))
+
+        def _fmt_row(chk_widget, icon, label, desc, color):
+            row = QWidget(); row.setObjectName("card")
+            rl = QHBoxLayout(row); rl.setContentsMargins(12,10,12,10); rl.setSpacing(10)
+            rl.addWidget(chk_widget)
+            badge = QLabel(icon)
+            badge.setFixedWidth(22)
+            badge.setStyleSheet(f"font-size:15px; background:transparent; color:{color};")
+            rl.addWidget(badge)
+            col = QVBoxLayout(); col.setSpacing(1)
+            col.addWidget(lbl(label, size=11, bold=True))
+            col.addWidget(lbl(desc,  size=10, dim=True))
+            rl.addLayout(col); rl.addStretch()
+            return row
+
+        self.chk_pdf  = QCheckBox(); self.chk_pdf.setChecked(True)
+        self.chk_xlsx = QCheckBox()
+        self.chk_json = QCheckBox()
+        self.chk_ioc  = QCheckBox()
+
+        lo.addWidget(_fmt_row(self.chk_pdf,  "📄", "PDF Report",
+                              "Executive forensic summary — countries, IPs, severity",
+                              T("ACCENT")))
+        lo.addWidget(_fmt_row(self.chk_xlsx, "📊", "Excel  (.xlsx)",
+                              "Full IP table with all columns — ideal for SOC analysts",
+                              T("SUCCESS")))
+        lo.addWidget(_fmt_row(self.chk_json, "{ }", "JSON  — SIEM / SOAR",
+                              "Machine-readable IOC payload for ingestion pipelines",
+                              T("WARN")))
+        lo.addWidget(_fmt_row(self.chk_ioc,  "🛡", "IOC List  (.txt)",
+                              "Plain IP list for firewall rules or threat intel feeds",
+                              T("DANGER")))
+
+        lo.addWidget(sep())
+
+        # ── Filtro top N ──────────────────────────────────────────────────────
+        row_n = QHBoxLayout(); row_n.setSpacing(6)
         self.chk_top = QCheckBox("Limit to top")
         self.spin    = QSpinBox(); self.spin.setRange(10, 9999); self.spin.setValue(100)
         self.spin.setFixedWidth(70)
-        row.addWidget(self.chk_top); row.addWidget(self.spin)
-        row.addWidget(lbl("IPs", dim=True)); row.addStretch()
-        lo.addLayout(row); lo.addWidget(sep())
+        row_n.addWidget(self.chk_top); row_n.addWidget(self.spin)
+        row_n.addWidget(lbl("IPs", dim=True)); row_n.addStretch()
+        lo.addLayout(row_n); lo.addWidget(sep())
+
+        # ── Botones ───────────────────────────────────────────────────────────
         btns = QDialogButtonBox(
             QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         btns.button(QDialogButtonBox.StandardButton.Ok).setObjectName("primary")
-        btns.button(QDialogButtonBox.StandardButton.Ok).setText("Export")
+        btns.button(QDialogButtonBox.StandardButton.Ok).setText("Export selected")
         btns.accepted.connect(self._run); btns.rejected.connect(self.reject)
         lo.addWidget(btns)
 
     def _run(self):
+        if not any([self.chk_pdf.isChecked(), self.chk_xlsx.isChecked(),
+                    self.chk_json.isChecked(), self.chk_ioc.isChecked()]):
+            QMessageBox.warning(self, "Export", "Select at least one format.")
+            return
+
         df = self.df
         if self.chk_top.isChecked():
             top_ips = df["IP_Atacante"].value_counts().head(self.spin.value()).index
@@ -947,42 +1114,53 @@ class ExportDialog(QDialog):
         if self.chk_pdf.isChecked():
             p = f"KATANA_Report_{ts}.pdf"
             try:
-                _build_pdf(df, self.df_mapa, p); out.append(p)
+                _build_pdf(df, self.df_mapa, p); out.append(("PDF Report",   p, True))
             except Exception as e:
-                out.append(f"PDF error: {e}")
+                out.append(("PDF Report", f"error: {e}", False))
 
         if self.chk_xlsx.isChecked():
+            p = f"KATANA_IPs_{ts}.xlsx"
             try:
-                p = f"KATANA_IPs_{ts}.xlsx"
                 df.drop(columns=["_row"], errors="ignore").to_excel(p, index=False)
-                out.append(p)
+                out.append(("Excel (.xlsx)", p, True))
             except Exception as e:
-                out.append(f"xlsx error: {e}")
+                out.append(("Excel (.xlsx)", f"error: {e}", False))
 
         if self.chk_json.isChecked():
             p = f"KATANA_SIEM_{ts}.json"
-            grp_cols = [c for c in ["IP_Atacante", "Pais", "Severidad"] if c in df.columns]
-            c = df.groupby(grp_cols).size().reset_index(name="events")
-            payload = {"katana": "8.0", "ts": ts,
-                       "total_ips":    int(df["IP_Atacante"].nunique()),
-                       "total_events": int(len(df)),
-                       "iocs":         c.to_dict("records")}
-            with open(p, "w", encoding="utf-8") as f:
-                json.dump(payload, f, indent=2, ensure_ascii=False)
-            out.append(p)
+            try:
+                grp_cols = [c for c in ["IP_Atacante","Pais","Severidad"] if c in df.columns]
+                c = df.groupby(grp_cols).size().reset_index(name="events")
+                payload = {"katana": "8.0", "ts": ts,
+                           "total_ips":    int(df["IP_Atacante"].nunique()),
+                           "total_events": int(len(df)),
+                           "iocs":         c.to_dict("records")}
+                with open(p, "w", encoding="utf-8") as f:
+                    json.dump(payload, f, indent=2, ensure_ascii=False)
+                out.append(("JSON SIEM", p, True))
+            except Exception as e:
+                out.append(("JSON SIEM", f"error: {e}", False))
 
         if self.chk_ioc.isChecked():
             p = f"KATANA_IOC_{ts}.txt"
-            ips = df["IP_Atacante"].value_counts().index.tolist()
-            with open(p, "w", encoding="utf-8") as f:
-                f.write(f"# KATANA IOC  {datetime.now()}\n# {len(ips)} IPs\n\n")
-                f.write("\n".join(ips))
-            out.append(p)
+            try:
+                ips = df["IP_Atacante"].value_counts().index.tolist()
+                with open(p, "w", encoding="utf-8") as f:
+                    f.write(f"# KATANA IOC  {datetime.now()}\n# {len(ips)} IPs\n\n")
+                    f.write("\n".join(ips))
+                out.append(("IOC List (.txt)", p, True))
+            except Exception as e:
+                out.append(("IOC List (.txt)", f"error: {e}", False))
 
-        QMessageBox.information(self, "Done", "Files created:\n\n" + "\n".join(out))
-        for o in out:
-            if o.endswith(".pdf"):
-                webbrowser.open(f"file://{os.path.abspath(o)}")
+        lines = "\n".join(
+            f"  {'✓' if ok else '✗'}  {name}  →  {path}"
+            for name, path, ok in out
+        )
+        QMessageBox.information(self, "Export complete",
+            f"Files created:\n\n{lines}")
+        for _, path, ok in out:
+            if ok and path.endswith(".pdf"):
+                webbrowser.open(f"file://{os.path.abspath(path)}")
         self.accept()
 
 
@@ -1012,6 +1190,137 @@ class WhitelistDialog(QDialog):
             {l.strip() for l in self.txt.toPlainText().splitlines() if l.strip()})
         db_whitelist_save(self._wl)
         self.accept()
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  SPLASH SCREEN  —  Enterprise Edition
+# ─────────────────────────────────────────────────────────────────────────────
+class SplashScreen(QWidget):
+    """Pantalla de carga premium con logo y barra de progreso."""
+    done = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+        self.setWindowFlags(
+            Qt.WindowType.SplashScreen |
+            Qt.WindowType.FramelessWindowHint |
+            Qt.WindowType.WindowStaysOnTopHint
+        )
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        self.setFixedSize(460, 280)
+
+        screen = QApplication.primaryScreen().geometry()
+        self.move(
+            (screen.width()  - self.width())  // 2,
+            (screen.height() - self.height()) // 2,
+        )
+
+        root = QWidget(self)
+        root.setFixedSize(460, 280)
+        root.setStyleSheet(
+            "background:#1C1C1E; border-radius:16px;"
+            "border:1px solid #48484A;")
+        lo = QVBoxLayout(root)
+        lo.setContentsMargins(44, 40, 44, 36)
+        lo.setSpacing(0)
+
+        # ── Logo ────────────────────────────────────────────────────────────
+        logo_row = QHBoxLayout(); logo_row.setSpacing(14)
+
+        class _Logo(QWidget):
+            def __init__(self):
+                super().__init__(); self.setFixedSize(48, 48)
+            def paintEvent(self, _):
+                p = QPainter(self)
+                p.setRenderHint(QPainter.RenderHint.Antialiasing)
+                # Fondo gradiente dorado → azul (Enterprise)
+                from PyQt6.QtGui import QLinearGradient
+                grad = QLinearGradient(0, 0, 48, 48)
+                grad.setColorAt(0, QColor("#0A84FF"))
+                grad.setColorAt(1, QColor("#FF9F0A"))
+                p.setBrush(QBrush(grad))
+                p.setPen(Qt.PenStyle.NoPen)
+                p.drawEllipse(0, 0, 48, 48)
+                f = QFont("Poppins", 21, QFont.Weight.Bold)
+                p.setFont(f)
+                p.setPen(QColor("white"))
+                p.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter, "K")
+
+        logo_row.addWidget(_Logo())
+        txt_col = QVBoxLayout(); txt_col.setSpacing(3)
+
+        name_lbl = QLabel("KATANA")
+        name_lbl.setStyleSheet(
+            f"font-family:{SANS}; font-size:24px; font-weight:800;"
+            f"color:#F2F2F7; background:transparent; letter-spacing:3px;")
+        edition_lbl = QLabel("Enterprise  ·  Threat Intelligence Platform")
+        edition_lbl.setStyleSheet(
+            f"font-family:{SANS}; font-size:11px; font-weight:500;"
+            f"color:#FF9F0A; background:transparent; letter-spacing:0.5px;")
+
+        txt_col.addWidget(name_lbl); txt_col.addWidget(edition_lbl)
+        logo_row.addLayout(txt_col); logo_row.addStretch()
+        lo.addLayout(logo_row)
+        lo.addSpacing(30)
+
+        # ── Estado ──────────────────────────────────────────────────────────
+        self._status = QLabel("Initializing…")
+        self._status.setStyleSheet(
+            f"font-family:{SANS}; font-size:11px; font-weight:500;"
+            f"color:#AEAEB2; background:transparent;")
+        lo.addWidget(self._status)
+        lo.addSpacing(10)
+
+        # ── Barra degradada ──────────────────────────────────────────────────
+        self._bar = QProgressBar()
+        self._bar.setRange(0, 100)
+        self._bar.setValue(0)
+        self._bar.setFixedHeight(4)
+        self._bar.setTextVisible(False)
+        self._bar.setStyleSheet("""
+            QProgressBar {
+                background:#3A3A3C; border:none; border-radius:2px;
+            }
+            QProgressBar::chunk {
+                background: qlineargradient(
+                    x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #0A84FF, stop:0.6 #FF9F0A, stop:1 #FF453A);
+                border-radius:2px;
+            }
+        """)
+        lo.addWidget(self._bar)
+        lo.addSpacing(16)
+
+        footer = QLabel("v8.0  ·  Sophos Firewall Log Analyzer  ·  Enterprise Edition")
+        footer.setStyleSheet(
+            f"font-family:{SANS}; font-size:9px; font-weight:400;"
+            f"color:#48484A; background:transparent;")
+        lo.addWidget(footer)
+
+        # ── Animación ────────────────────────────────────────────────────────
+        self._steps = [
+            (12,  "Loading libraries…"),
+            (28,  "Connecting to database…"),
+            (45,  "Loading whitelist…"),
+            (60,  "Applying enterprise theme…"),
+            (78,  "Building interface…"),
+            (90,  "Loading AEGIS engine…"),
+            (100, "Ready."),
+        ]
+        self._step_idx = 0
+        self._timer = QTimer(self)
+        self._timer.timeout.connect(self._advance)
+        self._timer.start(210)
+
+    def _advance(self):
+        if self._step_idx >= len(self._steps):
+            self._timer.stop()
+            QTimer.singleShot(160, self.done.emit)
+            return
+        val, msg = self._steps[self._step_idx]
+        self._bar.setValue(val)
+        self._status.setText(msg)
+        self._step_idx += 1
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1826,5 +2135,19 @@ class KatanaApp(QMainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyle("Fusion")
-    w = KatanaApp(); w.show()
+
+    splash = SplashScreen()
+    splash.show()
+    app.processEvents()
+
+    _main_win = None
+
+    def _launch():
+        global _main_win
+        splash.hide()
+        _main_win = KatanaApp()
+        _main_win.show()
+        splash.deleteLater()
+
+    splash.done.connect(_launch)
     sys.exit(app.exec())
