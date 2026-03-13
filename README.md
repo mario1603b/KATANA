@@ -1,5 +1,5 @@
 
-<h1 align="center">⚔️ KATANA v8.0 Threat Intelligence Platform</h1>
+<h1 align="center">⚔️ KATANA v0.8 Threat Intelligence Platform</h1>
 <h3 align="center">Advanced SOC Analysis & Active Defense for Sophos Firewalls</h3>
 
 <p align="center">
@@ -12,7 +12,7 @@
 
 ---
 
-# ⚔️ KATANA v8.0 — Overview
+# ⚔️ KATANA v0.8 — Overview
 
 KATANA is a **commercial-grade Threat Intelligence and Active Defense platform** designed for **SOC analysts, incident responders, and cybersecurity architects**.
 
@@ -26,7 +26,7 @@ KATANA bridges the gap between:
 
 ---
 
-# 🚀 v8.0 Platform Upgrades
+# 🚀 v0.8 Platform Upgrades
 
 The entire core has been rewritten to support enterprise-level workloads without UI freezing or memory bottlenecks.
 
@@ -121,7 +121,7 @@ You can compile KATANA into a **single portable Windows executable** using PyIns
 Bash
 
 ```
-pyinstaller --noconfirm --onefile --windowed --name "KATANA_v8.0_Platform" main.py
+pyinstaller --noconfirm --onefile --windowed --name "KATANA_v0.8_Platform" main.py
 ```
 
 _Note: Large data-science libraries (Pandas, Plotly, PyQt6) are bundled inside the `.exe`. The first launch may take 5-10 seconds as Windows decompresses the payload into memory._
